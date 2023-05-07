@@ -1,0 +1,46 @@
+
+#include <ESP8266WiFi.h>
+WiFiClient client;//chuyền kiểu dữ liệu trong webserver
+WiFiServer server(80);//chuyền nhận ở cổng 80
+#ifndef STASSID
+#define STASSID "301"
+#define STAPSK "daihocbachkhoahanoi2.0"
+#endif
+
+const char* ssid = STASSID;
+const char* password = STAPSK;
+String data="";
+
+
+
+void setup() 
+{
+ 
+  pinMode(2, OUTPUT);
+  digitalWrite(2, 0);
+  Serial.begin(115200);
+  connectWifi();
+  server.begin();
+}
+
+void loop() 
+{
+  client=server.available();
+  
+  
+}
+void connectWifi()
+{
+  Serial.println("Connecting to WIFI");
+  WiFi.begin(ssid,password);
+while((!(Wifi.status()== WL_CONNECTED)))
+  {
+    delay(300);
+    Serial.print("..");
+  }
+  Serial.println("");
+  Serial.println("Wifi connected");
+  Serial.println("Local IP is :");
+  Serial.println((Wifi.localIP()));
+
+}
